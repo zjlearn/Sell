@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.netease.dao.OrderDao">
+    <insert id="addOrder" parameterType="com.netease.meta.Order" useGeneratedKeys="true" keyProperty="id">
+        INSERT into orderTable (userId, productId, num, price, orderTime )
+        VALUES (#{userId}, #{productId}, #{num}, #{price}, #{orderTime})
+    </insert>
+
+    <!--sql语句写的有问题-->
+    <select id="getOrderByUser" parameterType="int" resultType="com.netease.meta.Order">
+       select   userId, productId, productTable.photoAddress, productTable.productName, orderTable.num, orderTable.price,
+        orderTable.orderTime
+        from productTable, orderTable
+        where orderTable.userId=#{id} and productTable.id=orderTable.productId
+    </select>
+
+</mapper>

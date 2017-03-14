@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://
+mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.netease.dao.ProductDao">
+    <insert id="insertProduct" useGeneratedKeys="true" keyProperty="id" parameterType="com.netease.meta.Product">
+        insert into productTable (ownerId, productName, price, stock, detail, summary, photoAddress)
+        values ( #{ownerId}, #{productName}, #{price}, #{stock}, #{detail}, #{summary}, #{photoAddress})
+    </insert>
+
+    <select id="getProductById" parameterType="int" resultType="com.netease.meta.Product">
+        select * from productTable where id=#{id}
+    </select>
+
+
+    <select id="getProductByOwnerId" parameterType="int" resultType="com.netease.meta.Product" >
+        select * from productTable
+        where ownerId=#{id}
+    </select>
+
+    <select id="getAllProducts" resultType="com.netease.meta.Product">
+        select * from productTable
+    </select>
+
+
+    <select id="getPurchasedProducts" parameterType="int" resultType="com.netease.meta.Product">
+        SELECT productTable.id, ownerId, productName, orderTable.price, stock, detail, summary, photoAddress
+        FROM productTable, orderTable
+        where
+            orderTable.userId==#{id} and productTable.id=orderTable.productId
+    </select>
+
+
+    <select id="getNotPurchasedProducts" parameterType="int" resultType="com.netease.meta.Product">
+        SELECT productTable.id, ownerId, productName, productTable.price, stock, detail, summary, photoAddress
+        FROM productTable
+        where not exists (
+            select * from orderTable
+            where productTable.id=orderTable.productId and orderTable.userId=#{id}
+        ) and productTable.ownerId !=#{id};
+    </select>
+
+    <select id="isPrurchased" resultType="boolean">
+        select count(*) from orderTable
+        where orderTable.userId=#{userId} and orderTable.productId=#{productId}
+    </select>
+
+    <select id="getProductNum" parameterType="int" resultType="int">
+        select stock from productTable
+        where productTable.id=#{productId}
+    </select>
+
+    <!--只能允许传入一个参数吗， 多参数要使用 下表 #{0} ，#{1}-->
+    <update id="updateNum">
+        UPDATE productTable SET  stock = #{1} WHERE id=#{0}
+    </update>
+
+    <update id="updateProduct" parameterType="com.netease.meta.Product">
+        UPDATE productTable SET
+            id=#{id},
+            productName=#{productName},
+            stock=#{stock},
+            price=#{price},
+            summary=#{summary},
+            detail=#{detail},
+            photoAddress=#{photoAddress},
+            ownerId=#{ownerId}
+        where id=#{id}
+    </update>
+</mapper>
