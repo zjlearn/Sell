@@ -48,7 +48,7 @@
         </div>
 
         <div class="col-md-4">
-            <form class="form-horizontal form-group" autocomplete="on"  onsubmit="encry(); return true;" action="login/user">
+            <form class="form-horizontal form-group" autocomplete="on"  onsubmit="encry(); return true;" action="/Sell/login/user">
                 <div class="control-group">
                     <label class="control-label" for="name">用户</label>
                     <div class="controls">

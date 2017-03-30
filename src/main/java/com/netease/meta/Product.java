@@ -1,5 +1,6 @@
 package com.netease.meta;
 
+import java.math.BigDecimal;
 /**
  * Created by zj on 2017/2/17.
  */
@@ -7,7 +8,7 @@ package com.netease.meta;
 public class Product {
     private int id;
     private  String productName;  //限制在80个长度以内
-    private float price;
+    private BigDecimal  price;
     private int stock; //产品的存量
     private String summary; //限制在140个字符以内
     private String  detail; //限制在1000个字符以内
@@ -36,7 +37,7 @@ public class Product {
         this.stock=0;
     }
 
-    public Product( String name, int ownerIdId,  int stock,  String summary, String desc, float price, String photoAddress) {
+    public Product( String name, int ownerIdId,  int stock,  String summary, String desc, BigDecimal price, String photoAddress) {
         this.productName = name;
         this.ownerId=ownerIdId;
         this.summary = summary;
@@ -71,11 +72,11 @@ public class Product {
     }
 
 
-    public float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

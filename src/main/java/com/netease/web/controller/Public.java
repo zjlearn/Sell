@@ -17,6 +17,7 @@ import com.netease.service.Impl.ProductServiceImpl;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
  * Created by zj on 2017/2/18.
@@ -70,7 +71,8 @@ public class Public {
             }
 
             //上传成功之后保存相应的地址
-            Product p = new Product(name, ownerId, stock, summary, detail, price, picAddress);
+            BigDecimal pr =new BigDecimal(price);
+            Product p = new Product(name, ownerId, stock, summary, detail, pr, picAddress);
             ps.insertProduct(p);
             model.addAttribute("product", p);
             return "pbSubmit";

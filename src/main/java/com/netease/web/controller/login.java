@@ -40,11 +40,13 @@ public class login {
     @RequestMapping(value = "/login/user")
     public String Login(@RequestParam("name") String name, @RequestParam("password") String password,
                         HttpSession session, ModelMap model) {
-
-        System.out.println(password);
+        System.out.println("int the loginuser");
         //设置Session属性，
         User u= us.getUserByName(name);
         //对用户的用户名和密码做验证
+        if(u==null || !u.getPassword().equals(password)){  //当密码不对时，仍然返回登录界面
+            return "login";
+        }
         //用户登录成功，返回到主页面
         session.setAttribute("user",u);
 

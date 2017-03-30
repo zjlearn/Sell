@@ -22,4 +22,5 @@ public class UserServiceImpl implements UserService {
     public void InsertUser(User u){
         this.userDao.InsertUser(u);
     }
+
 }
